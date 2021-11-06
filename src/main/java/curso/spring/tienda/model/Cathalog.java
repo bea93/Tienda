@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Cathalog {
 	private static ArrayList<Product> catalogo = cargarCatalogo();
 	
-	private static ArrayList<Product> cargarCatalogo(){
+	public static ArrayList<Product> cargarCatalogo(){
 		ArrayList<Product> catalogo = new ArrayList<Product>();
 		catalogo.add(new Product(1, "Cerveza", 1.0));
 		catalogo.add(new Product(2, "Macarrones", 1.8));

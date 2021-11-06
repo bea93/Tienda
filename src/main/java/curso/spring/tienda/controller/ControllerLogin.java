@@ -29,8 +29,10 @@ public class ControllerLogin {
 		public String logarse(Model model,@ModelAttribute User user) {		
 			if(comprobarLogin(user)) {
 				model.addAttribute("name", user.getName());
-				return "saludo"; 
+				model.addAttribute("mensaje", "Bienvenid@, " + user.getName());
+				return "index"; 
 			}else {
+				model.addAttribute("mensaje", "Login incorrecto");
 				return "login";
 			}
 		}
