@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="head"></head>
+
+<body>
+	<!-- Navigation-->
+	<nav th:replace="nav">
+	</nav>
+	<!-- Header-->
+	<header class="bg-dark py-5">
+		<div class="container px-4 px-lg-5 my-5">
+			<div class="text-center text-white">
+				<h1 class="display-4 fw-bolder">Carrito</h1>
+				<!--Añadir botón para comprar y comprobar si hay sesión, si no la hay te redirige al login(enlazar la ventana de registro) -->
+				<!--<p class="lead fw-normal text-white-50 mb-0" th:text="${session.mensaje}">Mensaje</p>-->
+			</div>
+		</div>
+	</header>
+	<!-- Section-->
+	<section class="py-5">
+		<div class="container px-4 px-lg-5 mt-5">
+			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+				<!-- tabla que muestra que muestra lo que tenga y el botón para comprar-->
+				<!-- meter ventana detalle producto -->
+				<table class="table table-striped">
+					<tr>
+						<th>Producto</th>
+						<th>Precio</th>
+						<th>Cantidad</th>
+						<th>Total</th>
+						<th></th>
+					</tr>
+					<tr th:each="detalle : ${session.carrito_detalles}">
+						<td>
+							<a th:text="${detalle.idProducto}" th:href="@{/productos/detalles(id=${detalle.idProducto})}"></a>
+						</td>
+						<td th:text="${detalle.precioUnidad}"></td>
+						<td th:text="${detalle.unidades}"></td>
+						<td th:text="${detalle.impuesto}"></td>
+						<td th:text="${detalle.total}"></td>
+
+						<td>
+							<a th:href="@{/carrito/delete(idProducto=${detalle.idProducto})}">Eliminar producto</a>
+						</td>
+					</tr>
+					<tr>
+						<h3 th:text="'Total: ' + ${total}"></h3>
+					</tr>
+					<tr>
+						<td><a >Realizar Pedido</a ></td>
+					</tr>
+				</table>
+				
+			</div>
+		</div>
+	</section>
+	<!-- Footer-->
+	<footer class="py-5 bg-dark" th:replace="footer"></footer>
+
+</body>
+
+</html>
