@@ -21,19 +21,6 @@ public class OrderDetails {
 		super();
 	}
 
-	public OrderDetails(int id, int idPedido, int idProducto, String nombreProducto, double precioUnidad, int unidades,
-			float impuesto, double total) {
-		super();
-		this.id = id;
-		this.idPedido = idPedido;
-		this.idProducto = idProducto;
-		this.nombreProducto = nombreProducto;
-		this.precioUnidad = precioUnidad;
-		this.unidades = unidades;
-		this.impuesto = impuesto;
-		this.total = total;
-	}
-
 	public OrderDetails(int id, int idProducto, String nombreProducto, double precioUnidad, int unidades) {
 		super();
 		this.id = id;
@@ -41,6 +28,17 @@ public class OrderDetails {
 		this.nombreProducto = nombreProducto;
 		this.precioUnidad = precioUnidad;
 		this.unidades = unidades;
+	}
+
+	public OrderDetails(int id, int idProducto, String nombreProducto, double precioUnidad, int unidades,
+			double total) {
+		super();
+		this.id = id;
+		this.idProducto = idProducto;
+		this.nombreProducto = nombreProducto;
+		this.precioUnidad = precioUnidad;
+		this.unidades = unidades;
+		this.total = precioUnidad * unidades;
 	}
 
 	public int getId() {
@@ -75,11 +73,11 @@ public class OrderDetails {
 		this.nombreProducto = nombreProducto;
 	}
 
-	public double getPrecio_unidad() {
+	public double getPrecioUnidad() {
 		return precioUnidad;
 	}
 
-	public void setPrecio_unidad(float precioUnidad) {
+	public void setPrecioUnidad(float precioUnidad) {
 		this.precioUnidad = precioUnidad;
 	}
 

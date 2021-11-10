@@ -25,27 +25,24 @@
 				<!-- meter ventana detalle producto -->
 				<table class="table table-striped">
 					<tr>
+						<th>Id</th>
 						<th>Producto</th>
-						<th>Precio</th>
 						<th>Cantidad</th>
 						<th>Total</th>
 						<th></th>
 					</tr>
-					<tr th:each="detalle : ${session.carrito_detalles}">
-						<td>
-							<a th:text="${detalle.idProducto}" th:href="@{/productos/detalles(id=${detalle.idProducto})}"></a>
-						</td>
-						<td th:text="${detalle.precioUnidad}"></td>
-						<td th:text="${detalle.unidades}"></td>
-						<td th:text="${detalle.impuesto}"></td>
-						<td th:text="${detalle.total}"></td>
+					<tr th:each="orderDetails:${session.cart}">
+						<td th:text="${orderDetails.idProducto}"></td>
+						<td th:text="${orderDetails.nombreProducto}"></td>
+						<td th:text="${orderDetails.precioUnidad}"></td>
+						<td th:text="${orderDetails.total}"></td>
 
 						<td>
-							<a th:href="@{/carrito/delete(idProducto=${detalle.idProducto})}">Eliminar producto</a>
+							<a>Eliminar producto</a>
 						</td>
 					</tr>
 					<tr>
-						<h3 th:text="'Total: ' + ${total}"></h3>
+						<h3></h3>
 					</tr>
 					<tr>
 						<td><a >Realizar Pedido</a ></td>

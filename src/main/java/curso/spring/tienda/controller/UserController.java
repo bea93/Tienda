@@ -54,8 +54,8 @@ public class UserController {
 
 	// Recoge los datos del formulario de registro
 	@PostMapping("/new")
-	public String registrarse(Model model, @ModelAttribute User user, HttpSession session) {
-		if(user.getPassword() == user.getPassword()) {
+	public String registrarse(Model model, String password, String password2,  User user, HttpSession session) {
+		if(password.equals(password2)) {
 			Base64 base64 = new Base64();
 			user.setId_rol(3);
 			String passEncriptada = new String(base64.encode(user.getPassword().getBytes()));;

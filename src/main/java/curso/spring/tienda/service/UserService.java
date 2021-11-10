@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +19,14 @@ public class UserService {
 
 	@PostConstruct
 	public /* ArrayList<Usuario> */ void cargarUsuarios() {
-		User u = new User(1, "admin", "admin", "admin@tiendaonline.es", 1);
+		Base64 base64 = new Base64();
+		String password = "admin";
+		String passwordEncriptada = new String(base64.encode(password.getBytes()));
+		User u = new User(1, "admin", passwordEncriptada, "admin@tiendaonline.es", 1);
 		ur.save(u);
-		u = new User(2, "pepe", "1234", "pepe@tiendaonline.es", 2);
+		String pass = "1234";
+		String passEncriptada = new String(base64.encode(pass.getBytes()));
+		u = new User(2, "pepe", passEncriptada, "pepe@tiendaonline.es", 2);
 		ur.save(u);
 	}
 
@@ -44,7 +50,8 @@ public class UserService {
 
 	public boolean comprobarLogin(User user) {
 		boolean result = false;
-		List<User> lista = ur.buscarUserLogin(user.getName(), user.getPassword());
+		Base64 base64 = new Base64();
+		List<User> lista = ur.buscarUserLogin(user.getName(), new String(base64.encode(user.getPassword().getBytes())));
 		if (!lista.isEmpty()) {
 			result = true;
 		}
