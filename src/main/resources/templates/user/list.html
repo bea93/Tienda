@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="head"></head>
+
+<body>
+	<!-- Navigation-->
+	<nav th:replace="nav">
+	</nav>
+	<!-- Header-->
+	<header th:replace="header">
+	</header>
+	<!-- Section-->
+	<section class="py-5">
+		<div class="container px-4 px-lg-5 mt-5">
+			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+				<table class="table table-striped">
+					<tr>
+						<th>Nombre</th>
+						<th>Email</th>
+						<th>Rol</th>
+						<th></th>
+						<th></th>
+					</tr>
+					<tr th:each="user:${list}">
+						<td th:text="${user.name}"></td>
+						<td th:text="${user.email}"></td>
+						<td th:text="${user.id_rol}"></td>
+						<td>
+							<a th:href="@{/user/del/}+${user.id}"> Eliminar usuario</a >
+						</td>
+						<td>
+							<a th:href="@{/user/update/}+${user.id}" th:if="${session.rol == 2}">Editar empleado</a >
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</section>
+	<!-- Footer-->
+	<footer th:replace="footer"></footer>
+</body>
+
+</html>

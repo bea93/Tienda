@@ -30,6 +30,13 @@ public class UserController {
 		return "user/login";
 	}
 
+	// Muestra el formulario de registro
+	@GetMapping("/list")
+	public String listar(Model model) {
+		model.addAttribute("list", us.getListaUsers());
+		return "user/list";
+	}
+
 	// Recoge los datos del formulario del login
 	@PostMapping("/login")
 	public String logarse(Model model, @ModelAttribute User user, HttpSession session) {
@@ -38,6 +45,7 @@ public class UserController {
 			model.addAttribute("name", u.getName());
 			session.setAttribute("mensaje", "Bienvenid@, " + u.getName());
 			session.setAttribute("rol", u.getId_rol());
+			session.setAttribute("id", u.getId());
 			return "redirect:/";
 		} else {
 			model.addAttribute("mensaje", "Login incorrecto");
@@ -54,17 +62,18 @@ public class UserController {
 
 	// Recoge los datos del formulario de registro
 	@PostMapping("/new")
-	public String registrarse(Model model, String password, String password2,  User user, HttpSession session) {
-		if(password.equals(password2)) {
+	public String registrarse(Model model, String password, String password2, User user, HttpSession session) {
+		if (password.equals(password2)) {
 			Base64 base64 = new Base64();
 			user.setId_rol(3);
-			String passEncriptada = new String(base64.encode(user.getPassword().getBytes()));;
+			String passEncriptada = new String(base64.encode(user.getPassword().getBytes()));
+
 			user.setPassword(passEncriptada);
 			us.addUser(user);
 			session.setAttribute("rol", user.getId_rol());
 			session.setAttribute("mensaje", "Usuario creado. Bienvenid@, " + user.getName());
 			return "redirect:/";
-		}else {
+		} else {
 			model.addAttribute("mensaje", "Las contraseñas no coinciden");
 		}
 		return "user/register";
@@ -87,13 +96,41 @@ public class UserController {
 
 	}
 
-	//Para borrar usuario
+	// Muestra el formulario de registro
+	@GetMapping("/password/{id}")
+	public String cambioContra(@PathVariable int id, Model model) {
+		User u = us.getUserXId(id);
+		model.addAttribute("user", u);
+		return "user/edit";
+	}
+
+	// Recoge los datos del formulario de registro
+	@PostMapping("/password")
+	public String modificarPass(@ModelAttribute User user, String password, String password2, String password3, HttpSession session, Model model) {
+		Base64 base64 = new Base64();
+		String passActualEnc = new String(base64.encode(password.getBytes()));
+
+		if (passActualEnc.equals(user.getPassword())) {
+			if(password2.equals(password3)) {
+				String passNuevaEnc = new String(base64.encode(password2.getBytes()));
+				user.setPassword(passNuevaEnc);
+				us.editUser(user);
+				model.addAttribute("mensaje", "La contraseña se ha actualizado");
+				return "redirect:/";
+			}
+		}else {
+		model.addAttribute("mensaje", "Las contraseñas no coinciden");
+	}
+	return "user/password";
+	}
+
+	// Para borrar usuario
 	@GetMapping("/del/{id}")
 	public String eliminar(@PathVariable int id) {
 		us.delUser(id);
 		return "redirect:/";
 	}
-	
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

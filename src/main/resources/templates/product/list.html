@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="head"></head>
+
+<body>
+	<!-- Navigation-->
+	<nav th:replace="nav">
+	</nav>
+	<!-- Header-->
+	<header th:replace="header">
+	</header>
+	<!-- Section-->
+	<section class="py-5">
+		<div class="container px-4 px-lg-5 mt-5">
+			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+				<table class="table table-striped">
+					<tr>
+						<th>Id</th>
+						<th>Producto</th>
+						<th>Precio Unidad</th>
+						<th></th>
+						<th></th>
+					</tr>
+					<tr th:each="product:${catalogo}">
+						<td th:text="${product.id}"></td>
+						<td th:text="${product.name}"></td>
+						<td th:text="${product.price}"></td>
+						<td>
+							<a th:href="@{/product/del/}+${product.id}"> Eliminar producto</a >
+						</td>
+						<td>
+							<a th:href="@{/product/update/}+${product.id}">Editar producto</a >
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="#!">Añadir producto</a >
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</section>
+	<!-- Footer-->
+	<footer th:replace="footer"></footer>
+</body>
+
+</html>

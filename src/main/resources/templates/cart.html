@@ -28,24 +28,32 @@
 						<th>Id</th>
 						<th>Producto</th>
 						<th>Cantidad</th>
+						<th>Precio Unidad</th>
 						<th>Total</th>
 						<th></th>
 					</tr>
 					<tr th:each="orderDetails:${session.cart}">
 						<td th:text="${orderDetails.idProducto}"></td>
 						<td th:text="${orderDetails.nombreProducto}"></td>
+						<td th:text="${orderDetails.unidades}"></td>
 						<td th:text="${orderDetails.precioUnidad}"></td>
 						<td th:text="${orderDetails.total}"></td>
 
 						<td>
-							<a>Eliminar producto</a>
+							<a th:href="@{/cart/del/} + ${orderDetails.idProducto}">
+								<button class="btn btn-lg btn-primary btn-block" type="submit">Eliminar producto</button>
+							</a>
 						</td>
 					</tr>
 					<tr>
-						<h3></h3>
+						<h3 th:text="'Total: ' + ${total}"></h3 >
 					</tr>
 					<tr>
-						<td><a >Realizar Pedido</a ></td>
+						<td>
+							<a href="#!">
+								<button class="btn btn-lg btn-primary btn-block" type="submit">Realizar pedido</button>
+							</a>
+						</td>	
 					</tr>
 				</table>
 				

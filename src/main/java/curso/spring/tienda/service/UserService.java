@@ -28,6 +28,10 @@ public class UserService {
 		String passEncriptada = new String(base64.encode(pass.getBytes()));
 		u = new User(2, "pepe", passEncriptada, "pepe@tiendaonline.es", 2);
 		ur.save(u);
+		String pass2 = "paso";
+		String passEncriptada2 = new String(base64.encode(pass2.getBytes()));
+		u = new User(3, "bea", passEncriptada2, "bea@bea.es", 3);
+		ur.save(u);
 	}
 
 	public List<User> getListaUsers() {
